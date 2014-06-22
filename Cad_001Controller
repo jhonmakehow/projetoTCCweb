@@ -1,0 +1,59 @@
+package br.com.trier.exemplo.view.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import br.com.trier.exemplo.core.ExemploBean;
+import br.com.trier.exemplo.core.entity.UsuarioEntity;
+
+@ManagedBean(name = "usuarioController")
+@SessionScoped
+public class Cad_001Controller {
+
+	private UsuarioEntity usuario;
+	
+	private List<UsuarioEntity> usuarios;
+	
+	@PostConstruct
+	public void inicializar(){
+		usuario = new UsuarioEntity();
+		usuarios = new ArrayList<UsuarioEntity>();
+	}
+
+	public void salvar(){
+		
+		System.out.println("Passou aqui");
+		
+		new ExemploBean().cadastroUsuario(usuario);
+		usuario = new UsuarioEntity();
+
+		usuarios = new ExemploBean().listarUsuario();
+		
+		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"Usuário OK", "Usuário cadastrado com sucesso");
+		
+		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+	}
+	
+	public UsuarioEntity getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioEntity usuario) {
+		this.usuario = usuario;
+	}
+
+	public List<UsuarioEntity> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<UsuarioEntity> usuarios) {
+		this.usuarios = usuarios;
+	}
+}
