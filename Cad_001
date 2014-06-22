@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="WEB-INF/template/template.xhtml">
+	<ui:define name="conteudo">
+
+		<p:panel header="Cadastro de Usuários" style="width: 80%">
+			<h:form id="form_usuario" >
+				<p:panelGrid columns="2" columnClasses="columnLabel">
+				
+				<h:outputLabel value="Id: "/>
+				<p:inputText value="#{usuarioController.usuario.id}" disabled="true" />
+
+				<h:outputLabel value="Nome: " />
+				<p:inputText value="#{usuarioController.usuario.nome}" />
+				
+				<h:outputLabel value="Login: " />
+				<p:inputText value="#{usuarioController.usuario.login}" />
+				
+				<h:outputLabel value="Senha: " />
+				<p:password value="#{usuarioController.usuario.senha}"
+					feedback="true" promptLabel="Digite sua senha" weakLabel="Fraca"
+					goodLabel="Boa" strongLabel="Ótima" />
+
+				<h:outputLabel value="Email: " />
+				<p:inputText value="#{usuarioController.usuario.email}" />
+				</p:panelGrid>
+				
+				
+				<p:commandButton action="#{usuarioController.salvar}" value="Salvar" icon="ui-icon-check"
+					update=":form_usuario" />
+
+				<p:dataTable id="tabela_usuario"
+					value="#{usuarioController.usuarios}" var="item">
+					<p:column headerText="Id">
+					#{item.id}
+				</p:column>
+					<p:column headerText="Nome">
+					#{item.nome}
+				</p:column>
+					<p:column headerText="Login">
+					#{item.login}
+				</p:column>
+					<p:column headerText="Email">
+					#{item.email}
+				</p:column>
+					<p:column headerText="Opções">
+					Alterar Excluir
+				</p:column>
+				</p:dataTable>
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>
+</html>
